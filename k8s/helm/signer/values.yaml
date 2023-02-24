@@ -60,17 +60,17 @@ signingKeys:
 pki:
   certificates:
     tlscrlsigner:
-      subject: "CN=Test TLS Signer Certificate, OU=HQ, O=HoldCo LLC, L=New York, C=US"
+      subject: "CN=Test TLS Signer Certificate, OU=HQ, O=Rodo, L=New York, C=US"
       crl:
-        issuer: "CN=Corda TLS Signer Certificate, OU=Corda, O=R3 HoldCo LLC, L=New York, C=US"
+        issuer: "CN=Corda TLS Signer Certificate, OU=Corda, O=R3 Rodo, L=New York, C=US"
     cordarootca:
-      subject: "CN=Test Root CA Certificate, OU=HQ, O=HoldCo LLC, L=New York, C=US"
+      subject: "CN=Test Root CA Certificate, OU=HQ, O=Rodo, L=New York, C=US"
     subordinateca:
-      subject: "CN=Test Subordinate CA Certificate, OU=HQ, O=HoldCo LLC, L=New York, C=US"
+      subject: "CN=Test Subordinate CA Certificate, OU=HQ, O=Rodo, L=New York, C=US"
     identitymanagerca:
-      subject: "CN=Test Identity Manager Service Certificate, OU=HQ, O=HoldCo LLC, L=New York, C=US"
+      subject: "CN=Test Identity Manager Service Certificate, OU=HQ, O=Rodo, L=New York, C=US"
     networkmap:
-      subject: "CN=Test Network Map Service Certificate, OU=HQ, O=HoldCo LLC, L=New York, C=US"
+      subject: "CN=Test Network Map Service Certificate, OU=HQ, O=Rodo, L=New York, C=US"
 
 # Sleep time (in seconds) after an error occured
 sleepTimeAfterError: 120
