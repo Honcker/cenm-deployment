@@ -8,6 +8,7 @@ parameters:
   type: gp3
   csi.storage.k8s.io/fstype: ext4
   allowAutoIOPSPerGBIncrease: "true"
+  encrypted: "true"
 allowVolumeExpansion: true
 volumeBindingMode: WaitForFirstConsumer
 
