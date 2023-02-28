@@ -121,8 +121,8 @@ then
     idmanServiceAllocate=true
     idmanServiceName="${releasePrefix}"-idman-ip
     announce "Triggering public IP allocation for Identity Manager"
-    printf "COMMAND: helm install %s-idman-ip idman-ip --set prefix=%s\n\n" "${releasePrefix}" "${releasePrefix}"
-    helm install "${releasePrefix}"-idman-ip idman-ip --set prefix="${releasePrefix}"
+    printf "COMMAND: helm upgrade --install %s-idman-ip idman-ip --set prefix=%s\n\n" "${releasePrefix}" "${releasePrefix}"
+    helm upgrade --install "${releasePrefix}"-idman-ip idman-ip --set prefix="${releasePrefix}"
 fi
 
 if [ -z "${notaryServiceName}" ]
@@ -130,15 +130,15 @@ then
     notaryServiceAllocate=true
     notaryServiceName="${releasePrefix}"-notary-ip
     announce "Triggering public IP allocation for Notary"
-    printf "COMMAND: helm install %s-notary-ip notary-ip --set prefix=%s\n\n" "${releasePrefix}" "${releasePrefix}"
-    helm install "${releasePrefix}"-notary-ip notary-ip --set prefix="${releasePrefix}"
+    printf "COMMAND: helm upgrade --install %s-notary-ip notary-ip --set prefix=%s\n\n" "${releasePrefix}" "${releasePrefix}"
+    helm upgrade --install "${releasePrefix}"-notary-ip notary-ip --set prefix="${releasePrefix}"
 fi
 
 # Run HSM helm chart first to give more time for IP allocation for Identity Manager above
 
 announce "Triggering HSM image"
-printf "COMMAND: helm install %s-hsm hsm --set prefix=%s\n\n" "${releasePrefix}" "${releasePrefix}"
-helm install "${releasePrefix}"-hsm hsm --set prefix="${releasePrefix}"
+printf "COMMAND: helm upgrade --install %s-hsm hsm --set prefix=%s\n\n" "${releasePrefix}" "${releasePrefix}"
+helm upgrade --install "${releasePrefix}"-hsm hsm --set prefix="${releasePrefix}"
 
 if [ "${idmanServiceAllocate}" == "true" ]
 then
@@ -169,28 +169,28 @@ fi
 
 
 announce "Triggering PKI Tool"
-printf "COMMAND: helm install %s-pki pki --set idmanPublicIP=%s --set prefix=%s --set acceptLicense=%s\n\n" "${releasePrefix}" "${idmanPublicIP}" "${releasePrefix}" "${acceptLicense}"
-helm install "${releasePrefix}"-pki pki --set idmanPublicIP="${idmanPublicIP}" --set prefix="${releasePrefix}" --set acceptLicense="${acceptLicense}" --set hsm="${hsm}"
+printf "COMMAND: helm upgrade --install %s-pki pki --set idmanPublicIP=%s --set prefix=%s --set acceptLicense=%s\n\n" "${releasePrefix}" "${idmanPublicIP}" "${releasePrefix}" "${acceptLicense}"
+helm upgrade --install "${releasePrefix}"-pki pki --set idmanPublicIP="${idmanPublicIP}" --set prefix="${releasePrefix}" --set acceptLicense="${acceptLicense}" --set hsm="${hsm}"
 
 announce "Bootstrapping CENM Auth service"
-printf "COMMAND: helm install %s-auth auth --set prefix=%s --set acceptLicense=%s\n\n" "${releasePrefix}" "${releasePrefix}" "${acceptLicense}"
-helm install "${releasePrefix}"-auth auth --set prefix="${releasePrefix}" --set acceptLicense="${acceptLicense}"
+printf "COMMAND: helm upgrade --install %s-auth auth --set prefix=%s --set acceptLicense=%s\n\n" "${releasePrefix}" "${releasePrefix}" "${acceptLicense}"
+helm upgrade --install "${releasePrefix}"-auth auth --set prefix="${releasePrefix}" --set acceptLicense="${acceptLicense}"
 
 announce "Bootstrapping CENM Gateway service"
-printf "COMMAND: helm install %s-gateway gateway --set prefix=%s --set acceptLicense=%s\n\n" "${releasePrefix}" "${releasePrefix}" "${acceptLicense}"
-helm install "${releasePrefix}"-gateway gateway --set prefix="${releasePrefix}" --set acceptLicense="${acceptLicense}"
+printf "COMMAND: helm upgrade --install %s-gateway gateway --set prefix=%s --set acceptLicense=%s\n\n" "${releasePrefix}" "${releasePrefix}" "${acceptLicense}"
+helm upgrade --install "${releasePrefix}"-gateway gateway --set prefix="${releasePrefix}" --set acceptLicense="${acceptLicense}"
 
 announce "Bootstrapping CENM Zone service"
-printf "COMMAND: helm install %s-zone zone --set prefix=%s --set acceptLicense=%s\n\n" "${releasePrefix}" "${releasePrefix}" "${acceptLicense}"
-helm install "${releasePrefix}"-zone zone --set prefix="${releasePrefix}" --set acceptLicense="${acceptLicense}"
+printf "COMMAND: helm upgrade --install %s-zone zone --set prefix=%s --set acceptLicense=%s\n\n" "${releasePrefix}" "${releasePrefix}" "${acceptLicense}"
+helm upgrade --install "${releasePrefix}"-zone zone --set prefix="${releasePrefix}" --set acceptLicense="${acceptLicense}"
 
 announce "Bootstrapping CENM Signer service"
-printf "COMMAND: helm install %s-signer signer --set idmanPublicIP=%s --set prefix=%s --set acceptLicense=%s\n\n" "${releasePrefix}" "${idmanPublicIP}" "${releasePrefix}" "${acceptLicense}"
-helm install "${releasePrefix}"-signer signer --set idmanPublicIP="${idmanPublicIP}" --set prefix="${releasePrefix}" --set acceptLicense="${acceptLicense}" --set hsm="${hsm}"
+printf "COMMAND: helm upgrade --install %s-signer signer --set idmanPublicIP=%s --set prefix=%s --set acceptLicense=%s\n\n" "${releasePrefix}" "${idmanPublicIP}" "${releasePrefix}" "${acceptLicense}"
+helm upgrade --install "${releasePrefix}"-signer signer --set idmanPublicIP="${idmanPublicIP}" --set prefix="${releasePrefix}" --set acceptLicense="${acceptLicense}" --set hsm="${hsm}"
 
 announce "Bootstrapping CENM Identity Manager service"
-printf "COMMAND: helm install %s-idman idman --set prefix=%s --set acceptLicense=%s\n\n" "${releasePrefix}" "${releasePrefix}" "${acceptLicense}"
-helm install "${releasePrefix}"-idman idman --set prefix="${releasePrefix}" --set acceptLicense="${acceptLicense}"
+printf "COMMAND: helm upgrade --install %s-idman idman --set prefix=%s --set acceptLicense=%s\n\n" "${releasePrefix}" "${releasePrefix}" "${acceptLicense}"
+helm upgrade --install "${releasePrefix}"-idman idman --set prefix="${releasePrefix}" --set acceptLicense="${acceptLicense}"
 
 if [ "${notaryServiceAllocate}" == "true" ]
 then
@@ -220,12 +220,12 @@ then
 fi
 
 announce "Bootstrapping Notary service"
-printf "COMMAND: helm install %s-notary notary --set notaryPublicIP=%s --set prefix=%s --set mpv=%s --set acceptLicense=%s\n\n" "${releasePrefix}" "${notaryPublicIP}" "${releasePrefix}" "${minimumPV}" "${acceptLicense}"
-helm install "${releasePrefix}"-notary notary --set notaryPublicIP="${notaryPublicIP}" --set prefix="${releasePrefix}" --set mpv="${minimumPV}" --set acceptLicense="${acceptLicense}"
+printf "COMMAND: helm upgrade --install %s-notary notary --set notaryPublicIP=%s --set prefix=%s --set mpv=%s --set acceptLicense=%s\n\n" "${releasePrefix}" "${notaryPublicIP}" "${releasePrefix}" "${minimumPV}" "${acceptLicense}"
+helm upgrade --install "${releasePrefix}"-notary notary --set notaryPublicIP="${notaryPublicIP}" --set prefix="${releasePrefix}" --set mpv="${minimumPV}" --set acceptLicense="${acceptLicense}"
 
 announce "Bootstrapping CENM Network Map service"
-printf "COMMAND: helm install %s-nmap nmap --set prefix=%s --set acceptLicense=%s\n\n" "${releasePrefix}" "${releasePrefix}" "${acceptLicense}" 
-helm install "${releasePrefix}"-nmap nmap --set prefix="${releasePrefix}" --set acceptLicense="${acceptLicense}"
+printf "COMMAND: helm upgrade --install %s-nmap nmap --set prefix=%s --set acceptLicense=%s\n\n" "${releasePrefix}" "${releasePrefix}" "${acceptLicense}" 
+helm upgrade --install "${releasePrefix}"-nmap nmap --set prefix="${releasePrefix}" --set acceptLicense="${acceptLicense}"
 
 announce "Waiting until cloud provider has allocated public IP for CLI endpoint (it may take a few minutes)"
 gatewayStartTime=${SECONDS}
