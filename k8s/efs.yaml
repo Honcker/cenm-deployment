@@ -19,7 +19,7 @@ metadata:
   namespace: cenm
 data:
   file.system.id: EFS_FILE_SYSTEM_ID
-  aws.region: AWS_REGION
+  aws.region: AWS_REGION_REPLACE
   provisioner.name: aws.io/aws-efs
   dns.name: ""
 
@@ -73,7 +73,7 @@ spec:
       volumes:
         - name: pv-volume
           nfs:
-            server: EFS_FILE_SYSTEM_ID.efs.AWS_REGION.amazonaws.com
+            server: EFS_FILE_SYSTEM_ID.efs.AWS_REGION_REPLACE.amazonaws.com
             path: /
 
 
