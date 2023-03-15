@@ -11,3 +11,5 @@ service:
   sshdPort: 2222
 
 healthCheckNodePort: 0
+
+targetGroupARN:

@@ -13,3 +13,5 @@ serviceRevocation:
   port: 5053
 
 healthCheckNodePort: 0
+
+targetGroupARN:
