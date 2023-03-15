@@ -1,0 +1,12 @@
+apiVersion: elbv2.k8s.aws/v1beta1
+kind: TargetGroupBinding
+metadata:
+  name: {{ include "notary-ip.fullname" . }}
+  labels:
+{{ include "notary-ip.labels" . | indent 4 }}
+{{ include "cenm.labels" . | indent 4 }}
+spec:
+  serviceRef:
+    name: {{ include "notary-ip.fullname" . }}
+    port: {{ .Values.service.port }}
+  targetGroupARN: {{ required .Values.targetGroupARN }}

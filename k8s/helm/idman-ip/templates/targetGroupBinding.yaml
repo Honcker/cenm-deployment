@@ -1,0 +1,12 @@
+apiVersion: elbv2.k8s.aws/v1beta1
+kind: TargetGroupBinding
+metadata:
+  name: {{ include "idman-ip.fullname" . }}
+  labels:
+{{ include "idman-ip.labels" . | indent 4 }}
+{{ include "cenm.labels" . | indent 4 }}
+spec:
+  serviceRef:
+    name: {{ include "idman-ip.fullname" . }}
+    port: {{ .Values.service.port }}
+  targetGroupARN: {{ required .Values.targetGroupARN }}
