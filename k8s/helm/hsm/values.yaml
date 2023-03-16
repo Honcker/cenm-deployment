@@ -5,7 +5,7 @@
 bashDebug: false
 
 imagePullSecrets:
-  - name:
+  - name: cenm-registry
 
 nameOverride: ""
 fullnameOverride: ""
