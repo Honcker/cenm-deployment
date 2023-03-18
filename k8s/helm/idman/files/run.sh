@@ -4,6 +4,14 @@ set -x
 {{ end }}
 
 #
+# Download odbc jar
+#
+mkdir -p '/opt/corda/drivers'
+curl --request GET -sL \
+     --url 'https://jdbc.postgresql.org/download/postgresql-42.2.9.jar'\
+     --output '/opt/corda/drivers/postgresql-42.2.9.jar'
+
+#
 # main run
 #
 if [ -f {{ .Values.idmanJar.path }}/identitymanager.jar ]
