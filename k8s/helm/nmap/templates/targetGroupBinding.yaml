@@ -1,0 +1,12 @@
+apiVersion: elbv2.k8s.aws/v1beta1
+kind: TargetGroupBinding
+metadata:
+  name: {{ include "nmap.fullname" . }}
+  labels:
+{{ include "nmap.labels" . | indent 4 }}
+{{ include "cenm.labels" . | indent 4 }}
+spec:
+  serviceRef:
+    name: {{ include "nmap.fullname" . }}
+    port: {{ .Values.service.port }}
+  targetGroupARN: {{ required "An AWS target group arn must be provided" .Values.targetGroupARN }}
