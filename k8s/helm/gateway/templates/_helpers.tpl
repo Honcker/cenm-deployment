@@ -44,6 +44,13 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end -}}
 
 {{/*
+CENM labels
+*/}}
+{{- define "cenm.labels" -}}
+app.kubernetes.io/part-of: cenm
+{{- end -}}
+
+{{/*
 Selector labels
 */}}
 {{- define "gateway.selectorLabels" -}}
