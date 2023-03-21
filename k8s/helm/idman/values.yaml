@@ -29,7 +29,7 @@ volumeSizeIdmanH2: 10Gi
 # Configuration for database
 database:
   driverClassName: "org.h2.Driver"
-  jdbcDriver: ""
+  jdbcDriver: "driver/path.jar"
   url: "jdbc:h2:file:./h2/identity-manager-persistence;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=10000;WRITE_DELAY=0;AUTO_SERVER_PORT=0"
   user: "example-db-user"
   password: "example-db-password"
