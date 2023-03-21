@@ -27,7 +27,7 @@ jdbcDriverPath=$(jq -r .database.jdbcDriver {{ .Values.idmanJar.configPath }}/id
 
 # write a temp.conf file from the updated identitymanager.conf
 # replacing .database.jdbcDriver with the value intended by helm
-jq --arg jdbcDriver "jdbcDriverPath" '.database.jdbcDriver |= jdbcDriver' \
+jq --arg jdbcDriver "$jdbcDriverPath" '.database.jdbcDriver |= $jdbcDriver' \
 {{ .Values.idmanJar.configPath }}/identitymanager.conf > {{ .Values.idmanJar.configPath }}/temp.conf
 
 # replace identitymanager.conf with the new file
