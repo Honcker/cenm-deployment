@@ -27,7 +27,8 @@ then
     TOKEN=$(cat {{ .Values.nmapJar.configPath }}/token)
     ls -alR
     set -x
-    java -jar {{ .Values.nmapJar.path }}/networkmap.jar \
+    java -jar {{ .Values.nmapJar.path }}/angel.jar \
+    --jar-name={{ .Values.nmapJar.path }}/networkmap.jar \
     --token=${TOKEN} \
     --service=NETWORK_MAP \
     --polling-interval=10 \

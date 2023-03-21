@@ -26,7 +26,8 @@ then
     echo
     TOKEN=$(cat {{ .Values.idmanJar.configPath }}/token)
     ls -alR
-    java -jar {{ .Values.idmanJar.path }}/identitymanager.jar \
+    java -jar {{ .Values.idmanJar.path }}/angel.jar \
+    --jar-name={{ .Values.idmanJar.path }}/identitymanager.jar \
     --token=${TOKEN} \
     --service=IDENTITY_MANAGER \
     --working-dir=etc/ \
