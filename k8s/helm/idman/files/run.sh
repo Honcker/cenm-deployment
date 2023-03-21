@@ -13,6 +13,20 @@ curl --request GET -sL \
      --output '/opt/cenm/drivers/postgresql-42.2.9.jar'
 
 #
+# Use jq to update the database.jdbcDriver field from the init.conf file
+#
+# read the value of database.jdbcDriver that was originally configured in helm
+jdbcDriverPath=$(jq -r .database.jdbcDriver {{ .Values.idmanJar.configPath }}/identitymanager-init.conf)
+
+# write a temp.conf file from the updated identitymanager.conf
+# replacing .database.jdbcDriver with the value intended by helm
+jq --arg jdbcDriver "jdbcDriverPath" '.database.jdbcDriver |= jdbcDriver' \
+{{ .Values.idmanJar.configPath }}/identitymanager.conf > temp.conf
+
+# replace identitymanager.conf with the new file
+mv temp.conf {{ .Values.idmanJar.configPath }}/identitymanager.conf
+
+#
 # main run
 #
 if [ -f {{ .Values.idmanJar.path }}/identitymanager.jar ]
