@@ -158,6 +158,23 @@ spec:
             mountPath: /opt/cenm/logs
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+        - name: logs-angel
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ required "idman[logs]: missing value for .Values.dockerImage.name" .Values.dockerImage.name }}:{{ required "idman[logs]: missing value for .Values.dockerImage.tag" .Values.dockerImage.tag }}"
+          imagePullPolicy: {{ .Values.dockerImage.pullPolicy }}
+          command: ["/bin/bash", "-c"]
+          args:
+            - |-
+              cd /opt/cenm/
+              while true; do tail -f logs/angel-service/*.log 2>/dev/null; sleep 5; done
+              # in case sth went wrong just wait indefinitely ...
+              tail -f /dev/null
+          volumeMounts:
+            - name: idman-logs
+              mountPath: /opt/cenm/logs
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
         {{- end  }}
       volumes:
         - name: idman-conf
