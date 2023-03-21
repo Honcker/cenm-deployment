@@ -18,7 +18,6 @@ if [ -f {{ .Values.nmapJar.path }}/networkmap.jar ]
 then
 {{ if eq .Values.bashDebug true }}
     sha256sum {{ .Values.nmapJar.path }}/networkmap.jar
-    sha256sum {{ .Values.nmapJar.path }}/angel.jar
     cat {{ .Values.nmapJar.configPath }}/networkmap-init.conf
 {{ end }}
     echo
@@ -27,10 +26,7 @@ then
     TOKEN=$(cat {{ .Values.nmapJar.configPath }}/token)
     ls -alR
     set -x
-    java -jar {{ .Values.nmapJar.path }}/angel.jar \
-    --jar-name={{ .Values.nmapJar.path }}/networkmap.jar \
-    --zone-host={{ .Values.prefix }}-zone \
-    --zone-port=25000 \
+    java -jar {{ .Values.nmapJar.path }}/networkmap.jar \
     --token=${TOKEN} \
     --service=NETWORK_MAP \
     --polling-interval=10 \

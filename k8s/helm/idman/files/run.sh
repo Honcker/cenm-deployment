@@ -18,7 +18,6 @@ if [ -f {{ .Values.idmanJar.path }}/identitymanager.jar ]
 then
 {{ if eq .Values.bashDebug true }}
     sha256sum {{ .Values.idmanJar.path }}/identitymanager.jar
-    sha256sum {{ .Values.idmanJar.path }}/angel.jar
     cat {{ .Values.idmanJar.configPath }}/identitymanager.conf
 {{ end }}
     echo
@@ -26,10 +25,7 @@ then
     echo
     TOKEN=$(cat {{ .Values.idmanJar.configPath }}/token)
     ls -alR
-    java -jar {{ .Values.idmanJar.path }}/angel.jar \
-    --jar-name={{ .Values.idmanJar.path }}/identitymanager.jar \
-    --zone-host={{ .Values.prefix }}-zone \
-    --zone-port=25000 \
+    java -jar {{ .Values.idmanJar.path }}/identitymanager.jar \
     --token=${TOKEN} \
     --service=IDENTITY_MANAGER \
     --working-dir=etc/ \
