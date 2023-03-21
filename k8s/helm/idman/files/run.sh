@@ -16,6 +16,9 @@ curl --request GET -sL \
 # Use jq to update the database.jdbcDriver field from the init.conf file
 #
 
+ls -alR {{ .Values.idmanJar.configPath }}
+cat {{ .Values.idmanJar.configPath }}/identitymanager.conf
+
 # back up the current conf file
 cp {{ .Values.idmanJar.configPath }}/identitymanager.conf {{ .Values.idmanJar.configPath }}/identitymanager.conf.bak
 
