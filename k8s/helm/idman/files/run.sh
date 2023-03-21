@@ -15,16 +15,20 @@ curl --request GET -sL \
 #
 # Use jq to update the database.jdbcDriver field from the init.conf file
 #
+
+# back up the current conf file
+cp {{ .Values.idmanJar.configPath }}/identitymanager.conf {{ .Values.idmanJar.configPath }}/identitymanager.conf.bak
+
 # read the value of database.jdbcDriver that was originally configured in helm
 jdbcDriverPath=$(jq -r .database.jdbcDriver {{ .Values.idmanJar.configPath }}/identitymanager-init.conf)
 
 # write a temp.conf file from the updated identitymanager.conf
 # replacing .database.jdbcDriver with the value intended by helm
 jq --arg jdbcDriver "jdbcDriverPath" '.database.jdbcDriver |= jdbcDriver' \
-{{ .Values.idmanJar.configPath }}/identitymanager.conf > temp.conf
+{{ .Values.idmanJar.configPath }}/identitymanager.conf > {{ .Values.idmanJar.configPath }}/temp.conf
 
 # replace identitymanager.conf with the new file
-mv temp.conf {{ .Values.idmanJar.configPath }}/identitymanager.conf
+cp -f {{ .Values.idmanJar.configPath }}/temp.conf {{ .Values.idmanJar.configPath }}/identitymanager.conf
 
 #
 # main run
