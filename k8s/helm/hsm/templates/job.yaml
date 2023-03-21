@@ -6,6 +6,8 @@ spec:
   backoffLimit: {{ .Values.backoffLimit }}
   template:
     spec:
+      imagePullSecrets:
+        - name: cenm-registry
       containers:
         - name: main
           securityContext:
