@@ -29,6 +29,8 @@ then
     set -x
     java -jar {{ .Values.nmapJar.path }}/angel.jar \
     --jar-name={{ .Values.nmapJar.path }}/networkmap.jar \
+    --zone-host={{ .Values.prefix }}-zone \
+    --zone-port=25000 \
     --token=${TOKEN} \
     --service=NETWORK_MAP \
     --polling-interval=10 \

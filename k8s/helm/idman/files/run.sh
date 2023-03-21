@@ -28,6 +28,8 @@ then
     ls -alR
     java -jar {{ .Values.idmanJar.path }}/angel.jar \
     --jar-name={{ .Values.idmanJar.path }}/identitymanager.jar \
+    --zone-host={{ .Values.prefix }}-zone \
+    --zone-port=25000 \
     --token=${TOKEN} \
     --service=IDENTITY_MANAGER \
     --working-dir=etc/ \
