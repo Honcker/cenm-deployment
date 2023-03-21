@@ -8,4 +8,5 @@ metadata:
 spec:
   serviceRef:
     name: {{ include "idman-ip.fullname" . }}
+    port: {{ .Values.service.port }}
   targetGroupARN: {{ required "An AWS target group arn must be provided" .Values.targetGroupARN }}

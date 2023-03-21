@@ -8,4 +8,5 @@ metadata:
 spec:
   serviceRef:
     name: {{ include "notary-ip.fullname" . }}
+    port: {{ .Values.service.p2pPort }}
   targetGroupARN: {{ required "An AWS target group arn must be provided" .Values.targetGroupARN }}
