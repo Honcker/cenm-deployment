@@ -6,6 +6,7 @@ set -x
 #
 # Download odbc jar
 #
+pwd
 mkdir -p '/opt/corda/drivers'
 curl --request GET -sL \
      --url 'https://jdbc.postgresql.org/download/postgresql-42.2.9.jar'\
