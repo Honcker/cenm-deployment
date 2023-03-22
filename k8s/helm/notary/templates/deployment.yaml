@@ -37,8 +37,8 @@ spec:
             cp CM-FILES/notary.conf etc/
             cp CM-FILES/*.sh bin/
             chmod +x bin/*
-            bin/notary-initial-registration.sh
             bin/create-network-parameters-file.sh
+            bin/notary-initial-registration.sh
           volumeMounts:
           - name: notary-conf
             mountPath: /opt/cenm/CM-FILES/notary.conf
