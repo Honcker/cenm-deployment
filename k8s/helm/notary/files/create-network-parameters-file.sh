@@ -5,6 +5,9 @@ pwd
 cat -n etc/notary.conf
 {{ end }}
 
+java -jar {{ .Values.jarPath }}/corda.jar --config-file {{ .Values.configPath }}/notary.conf --just-generate-node-info \
+--log-to-console
+
 # we need just the filename without full path as this is going to be mounted under different directory in NM
 nodeInfoFile=$(basename $(ls additional-node-infos/nodeInfo*))
 export nodeInfoFile
