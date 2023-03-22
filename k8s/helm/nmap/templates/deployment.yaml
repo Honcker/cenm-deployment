@@ -22,7 +22,7 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       initContainers:
-        - name: init-token
+        - name: init-network-parameters
           env:
             - name: ACCEPT_LICENSE
               value: "{{required "You must accept the license agreement to use this software." .Values.acceptLicense }}"
@@ -38,7 +38,7 @@ spec:
             cp CM/*.sh bin/
             chmod +x bin/*
             ls -alR
-            bin/getZoneToken.sh
+            bin/set-network-parameters.sh
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
@@ -48,8 +48,8 @@ spec:
             mountPath: /opt/cenm/CM/networkmap-init.conf
             subPath: networkmap-init.conf
           - name: nmap-conf
-            mountPath: /opt/cenm/CM/getZoneToken.sh
-            subPath: getZoneToken.sh
+            mountPath: /opt/cenm/CM/set-network-parameters.sh
+            subPath: set-network-parameters.sh
           - name: notary-nodeinfo
             mountPath: /opt/cenm/notary-nodeinfo
       containers:
@@ -63,7 +63,7 @@ spec:
           - |-
             cp -r CM-FILES/*.sh bin/
             chmod +x bin/*
-            bin/run.sh
+            java -jar {{ .Values.nmapJar.path }}/networkmap.jar --config-file {{ .Values.nmapJar.configPath }}/networkmap-init.conf
           {{- if .Values.livenessProbe.enabled }}
           livenessProbe:
             tcpSocket:
@@ -117,23 +117,6 @@ spec:
           volumeMounts:
           - name: nmap-logs
             mountPath: /opt/cenm/logs
-        - name: logs-angel
-          securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ required "nmap[logs]: missing value for .Values.dockerImage.repository" .Values.dockerImage.repository }}:{{ required "nmap[logs]: missing value for .Values.dockerImage.tag" .Values.dockerImage.tag }}"
-          imagePullPolicy: {{ .Values.dockerImage.pullPolicy }}
-          command: ["/bin/bash", "-c"]
-          args:
-            - |-
-              cd /opt/cenm/
-              while true; do tail -f logs/angel-service/*.log 2>/dev/null; sleep 5; done
-              # in case sth went wrong just wait indefinitely ...
-              tail -f /dev/null
-          volumeMounts:
-            - name: nmap-logs
-              mountPath: /opt/cenm/logs
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
         {{- end  }}
       volumes:
         - name: pki-certs-keys
