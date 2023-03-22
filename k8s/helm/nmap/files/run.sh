@@ -4,15 +4,6 @@ set -x
 {{ end }}
 
 #
-# Download odbc jar
-#
-pwd
-mkdir -p '/opt/cenm/drivers'
-curl --request GET -sL \
-     --url 'https://jdbc.postgresql.org/download/postgresql-42.2.9.jar'\
-     --output '/opt/cenm/drivers/postgresql-42.2.9.jar'
-
-#
 # main run
 #
 if [ -f {{ .Values.nmapJar.path }}/networkmap.jar ]
