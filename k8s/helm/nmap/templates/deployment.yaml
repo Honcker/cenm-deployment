@@ -44,6 +44,10 @@ spec:
           volumeMounts:
           - name: nmap-etc
             mountPath: /opt/cenm/etc
+          - name: nmap-logs
+            mountPath: /opt/cenm/logs
+          - name: pki-certs-keys
+            mountPath: /opt/cenm/DATA
           - name: nmap-conf
             mountPath: /opt/cenm/CM/networkmap-init.conf
             subPath: networkmap-init.conf
