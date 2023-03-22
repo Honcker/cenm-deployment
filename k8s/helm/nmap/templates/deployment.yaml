@@ -28,7 +28,7 @@ spec:
               value: "{{required "You must accept the license agreement to use this software." .Values.acceptLicense }}"
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ required "nmap[cli]: missing value for .Values.dockerImageCli.repository" .Values.dockerImageCli.repository }}:{{ required "nmap[cli]: missing value for .Values.dockerImageCli.tag" .Values.dockerImageCli.tag }}"
+          image: "{{ required "nmap[main]: missing value for .Values.dockerImage.repository" .Values.dockerImage.repository }}:{{ required "nmap[main]: missing value for .Values.dockerImage.tag" .Values.dockerImage.tag }}"
           imagePullPolicy: {{ .Values.dockerImageCli.pullPolicy }}
           command: ["/bin/bash", "-c"]
           args:
